@@ -8,6 +8,7 @@
 
 <p align="center">
   <a href="#what-this-is"><strong>What this is</strong></a> ·
+  <a href="#quickstart"><strong>Quickstart</strong></a> ·
   <a href="#running-locally"><strong>Running locally</strong></a> ·
   <a href="#the-registry"><strong>The registry</strong></a> ·
   <a href="#the-skills-explorer"><strong>Skills explorer</strong></a> ·
@@ -32,18 +33,45 @@ React 19, Tailwind v4):
    zero dependencies) over a free, public NZ data source. Inspect the source,
    read the docs, then execute it live in a confined sandbox.
 
-## Running locally
+## Quickstart
+
+One command clones the skills corpus and starts the app:
 
 ```bash
-pnpm install   # pnpm is required (packageManager: pnpm@10.x)
-pnpm dev        # registry:build, then next dev on :3000
+pnpm quickstart
+```
+
+This runs `pnpm install`, clones [`thecolab-ai/.skills`](https://github.com/thecolab-ai/.skills)
+into a sibling `../.skills` directory (the skills explorer's data source), then
+starts the dev server on [localhost:3000](http://localhost:3000). Re-running it
+fast-forwards the skills to the latest commit. Requires `git`, `pnpm`, and
+Python 3 (to run skills).
+
+> Clone the skills into a different location with `SKILLS_DIR`, or point at a
+> fork with `SKILLS_REPO`:
+>
+> ```bash
+> SKILLS_REPO=https://github.com/your-org/.skills.git pnpm skills:clone
+> ```
+
+## Running locally
+
+If you'd rather run the steps yourself:
+
+```bash
+pnpm install        # pnpm is required (packageManager: pnpm@10.x)
+pnpm skills:clone   # clone/update ../.skills (the skills data source)
+pnpm dev            # registry:build, then next dev on :3000
 ```
 
 Your app runs on [localhost:3000](http://localhost:3000). No env vars are needed
-for local dev.
+for local dev. The skills explorer falls back to a bundled snapshot if
+`../.skills` is absent, so `pnpm dev` alone still renders the UI.
 
 | Command               | What it does                                                        |
 | --------------------- | ------------------------------------------------------------------- |
+| `pnpm quickstart`     | install + clone skills + `dev` (one-command setup)                  |
+| `pnpm skills:clone`   | clone/update `../.skills` from `thecolab-ai/.skills`                |
 | `pnpm dev`            | `registry:build`, then `next dev` on `:3000`                        |
 | `pnpm build`          | `registry:build`, then `next build`                                 |
 | `pnpm registry:build` | `shadcn build` &rarr; regenerates `public/r/*.json` from the registry |

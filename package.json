@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "quickstart": "pnpm install && pnpm skills:clone && pnpm dev",
+    "skills:clone": "node scripts/clone-skills.mjs",
     "dev": "pnpm registry:build && next dev",
     "build": "pnpm registry:build && next build",
     "start": "next start",
