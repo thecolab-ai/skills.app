@@ -16,13 +16,19 @@ export const navigationMenu = {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 w-[400px]">
+              <ul className="grid w-[400px] gap-3 p-4">
                 <li>
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">Introduction</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Re-usable components built using Radix UI and Tailwind CSS.
+                    <a
+                      href="/docs"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium text-sm leading-none">
+                        Introduction
+                      </div>
+                      <p className="line-clamp-2 text-muted-foreground text-sm leading-snug">
+                        Re-usable components built using Radix UI and Tailwind
+                        CSS.
                       </p>
                     </a>
                   </NavigationMenuLink>
@@ -33,12 +39,17 @@ export const navigationMenu = {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Components</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 w-[400px]">
+              <ul className="grid w-[400px] gap-3 p-4">
                 <li>
                   <NavigationMenuLink asChild>
-                    <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                      <div className="text-sm font-medium leading-none">Alert Dialog</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    <a
+                      href="/docs/primitives/alert-dialog"
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      <div className="font-medium text-sm leading-none">
+                        Alert Dialog
+                      </div>
+                      <p className="line-clamp-2 text-muted-foreground text-sm leading-snug">
                         A modal dialog that interrupts the user.
                       </p>
                     </a>

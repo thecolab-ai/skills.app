@@ -3,96 +3,104 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ───────────────────────────────────────────────────────────────────────────
+   thecolab.ai — "Warm Enterprise" theme
+   Warm cream backgrounds, white surfaces, navy serif headings, and the
+   signature indigo→cyan accent gradient. Brand tokens are exact hex values
+   from website.public; shadcn role tokens are the oklch equivalents.
+   Keep in sync with the `theme` item's cssVars in registry.json.
+   ─────────────────────────────────────────────────────────────────────────── */
+
 :root {
-  --background: oklch(0.97 0.01 80.72);
-  --foreground: oklch(0.3 0.04 30.2);
+  --background: oklch(0.9828 0.0045 78.3);
+  --foreground: oklch(0.3741 0.0087 67.56);
 
-  --card: oklch(0.97 0.01 80.72);
-  --card-foreground: oklch(0.3 0.04 30.2);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.3741 0.0087 67.56);
 
-  --popover: oklch(0.97 0.01 80.72);
-  --popover-foreground: oklch(0.3 0.04 30.2);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.3741 0.0087 67.56);
 
-  --primary: oklch(0.52 0.13 144.17);
-  --primary-foreground: oklch(1.0 0 0);
+  --primary: oklch(0.2161 0.0061 56.04);
+  --primary-foreground: oklch(0.9828 0.0045 78.3);
 
-  --secondary: oklch(0.96 0.02 147.64);
-  --secondary-foreground: oklch(0.43 0.12 144.31);
+  --secondary: oklch(0.9418 0.008 73.74);
+  --secondary-foreground: oklch(0.2161 0.0061 56.04);
 
-  --muted: oklch(0.94 0.01 74.42);
-  --muted-foreground: oklch(0.45 0.05 39.21);
+  --muted: oklch(0.9649 0.0045 78.3);
+  --muted-foreground: oklch(0.5534 0.0116 58.07);
 
-  --accent: oklch(0.9 0.05 146.04);
-  --accent-foreground: oklch(0.43 0.12 144.31);
+  --accent: oklch(0.95 0.025 235);
+  --accent-foreground: oklch(0.3665 0.0462 254.88);
 
-  --destructive: oklch(0.54 0.19 26.72);
-  --destructive-foreground: oklch(1.0 0 0);
+  --destructive: oklch(0.5534 0.1739 38.4);
+  --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.88 0.02 74.64);
-  --input: oklch(0.88 0.02 74.64);
-  --ring: oklch(0.52 0.13 144.17);
+  --border: oklch(0.9232 0.0026 48.72);
+  --input: oklch(0.9232 0.0026 48.72);
+  --ring: oklch(0.6847 0.1479 237.32);
 
-  --chart-1: oklch(0.67 0.16 144.21);
-  --chart-2: oklch(0.58 0.14 144.18);
-  --chart-3: oklch(0.52 0.13 144.17);
-  --chart-4: oklch(0.43 0.12 144.31);
-  --chart-5: oklch(0.22 0.05 145.73);
+  --chart-1: oklch(0.3665 0.0462 254.88);
+  --chart-2: oklch(0.5876 0.1389 241.97);
+  --chart-3: oklch(0.6847 0.1479 237.32);
+  --chart-4: oklch(0.5534 0.1739 38.4);
+  --chart-5: oklch(0.2161 0.0061 56.04);
 
-  --sidebar: oklch(0.94 0.01 74.42);
-  --sidebar-foreground: oklch(0.3 0.04 30.2);
-  --sidebar-primary: oklch(0.52 0.13 144.17);
-  --sidebar-primary-foreground: oklch(1.0 0 0);
-  --sidebar-accent: oklch(0.9 0.05 146.04);
-  --sidebar-accent-foreground: oklch(0.43 0.12 144.31);
-  --sidebar-border: oklch(0.88 0.02 74.64);
-  --sidebar-ring: oklch(0.52 0.13 144.17);
+  --sidebar: oklch(0.9649 0.0045 78.3);
+  --sidebar-foreground: oklch(0.3741 0.0087 67.56);
+  --sidebar-primary: oklch(0.2161 0.0061 56.04);
+  --sidebar-primary-foreground: oklch(0.9828 0.0045 78.3);
+  --sidebar-accent: oklch(0.9418 0.008 73.74);
+  --sidebar-accent-foreground: oklch(0.2161 0.0061 56.04);
+  --sidebar-border: oklch(0.9232 0.0026 48.72);
+  --sidebar-ring: oklch(0.6847 0.1479 237.32);
 
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 }
 
 .dark {
-  --background: oklch(0.15 0.01 74.42);
-  --foreground: oklch(0.95 0.02 80.72);
+  --background: oklch(0.207 0.0075 67.39);
+  --foreground: oklch(0.9599 0.0079 73.74);
 
-  --card: oklch(0.12 0.01 80.72);
-  --card-foreground: oklch(0.95 0.02 80.72);
+  --card: oklch(0.2339 0.0097 67.32);
+  --card-foreground: oklch(0.9599 0.0079 73.74);
 
-  --popover: oklch(0.12 0.01 80.72);
-  --popover-foreground: oklch(0.95 0.02 80.72);
+  --popover: oklch(0.2339 0.0097 67.32);
+  --popover-foreground: oklch(0.9599 0.0079 73.74);
 
-  --primary: oklch(0.58 0.15 144.17);
-  --primary-foreground: oklch(0.09 0.01 80.72);
+  --primary: oklch(0.9599 0.0079 73.74);
+  --primary-foreground: oklch(0.2161 0.0061 56.04);
 
-  --secondary: oklch(0.15 0.02 147.64);
-  --secondary-foreground: oklch(0.65 0.12 144.31);
+  --secondary: oklch(0.2686 0.0105 61.02);
+  --secondary-foreground: oklch(0.9599 0.0079 73.74);
 
-  --muted: oklch(0.18 0.01 74.42);
-  --muted-foreground: oklch(0.65 0.03 74.42);
+  --muted: oklch(0.2686 0.0105 61.02);
+  --muted-foreground: oklch(0.7099 0.0159 70.82);
 
-  --accent: oklch(0.22 0.04 146.04);
-  --accent-foreground: oklch(0.65 0.12 144.31);
+  --accent: oklch(0.3207 0.0113 67.41);
+  --accent-foreground: oklch(0.7535 0.139 232.66);
 
-  --destructive: oklch(0.62 0.22 26.72);
-  --destructive-foreground: oklch(0.95 0.02 80.72);
+  --destructive: oklch(0.62 0.19 38.4);
+  --destructive-foreground: oklch(0.9599 0.0079 73.74);
 
-  --border: oklch(0.22 0.02 74.64);
-  --input: oklch(0.22 0.02 74.64);
-  --ring: oklch(0.58 0.15 144.17);
+  --border: oklch(0.3207 0.0113 67.41);
+  --input: oklch(0.3207 0.0113 67.41);
+  --ring: oklch(0.7535 0.139 232.66);
 
-  --chart-1: oklch(0.72 0.16 144.21);
-  --chart-2: oklch(0.63 0.14 144.18);
-  --chart-3: oklch(0.58 0.15 144.17);
-  --chart-4: oklch(0.48 0.12 144.31);
-  --chart-5: oklch(0.35 0.08 145.73);
+  --chart-1: oklch(0.5701 0.0664 252.65);
+  --chart-2: oklch(0.6847 0.1479 237.32);
+  --chart-3: oklch(0.7535 0.139 232.66);
+  --chart-4: oklch(0.62 0.19 38.4);
+  --chart-5: oklch(0.9599 0.0079 73.74);
 
-  --sidebar: oklch(0.15 0.01 74.42);
-  --sidebar-foreground: oklch(0.95 0.02 80.72);
-  --sidebar-primary: oklch(0.58 0.15 144.17);
-  --sidebar-primary-foreground: oklch(0.09 0.01 80.72);
-  --sidebar-accent: oklch(0.22 0.04 146.04);
-  --sidebar-accent-foreground: oklch(0.65 0.12 144.31);
-  --sidebar-border: oklch(0.22 0.02 74.64);
-  --sidebar-ring: oklch(0.58 0.15 144.17);
+  --sidebar: oklch(0.2339 0.0097 67.32);
+  --sidebar-foreground: oklch(0.9599 0.0079 73.74);
+  --sidebar-primary: oklch(0.7535 0.139 232.66);
+  --sidebar-primary-foreground: oklch(0.2161 0.0061 56.04);
+  --sidebar-accent: oklch(0.2686 0.0105 61.02);
+  --sidebar-accent-foreground: oklch(0.9599 0.0079 73.74);
+  --sidebar-border: oklch(0.3207 0.0113 67.41);
+  --sidebar-ring: oklch(0.7535 0.139 232.66);
 }
 
 @theme inline {
@@ -136,6 +144,19 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Exact thecolab.ai brand tokens (hex) — use for the signature gradient,
+     navy primary surfaces, and accent text. */
+  --color-brand-navy: #1c1917;
+  --color-brand-indigo: #2e4057;
+  --color-brand-cyan: #0ea5e9;
+  --color-brand-cyan-dark: #0284c7;
+  --color-brand-orange: #c2410c;
+  --color-brand-cream: #fbf9f6;
+  --color-brand-slate-dark: #44403c;
+  --color-brand-slate-muted: #78716c;
+  --color-brand-slate-muted-light: #a8a29e;
+  --color-brand-white: #ffffff;
+
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
@@ -163,4 +184,39 @@
   ::file-selector-button {
     border-color: var(--color-border, currentColor);
   }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* Editorial serif headings — core to the warm-enterprise feel. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: color-mix(
+      in oklch,
+      var(--color-brand-cyan) 22%,
+      transparent
+    );
+  }
+}
+
+/* The signature indigo→cyan accent — applied to wordmark accents and headings. */
+@utility brand-gradient-text {
+  background-image: linear-gradient(
+    to right,
+    var(--color-brand-indigo),
+    var(--color-brand-cyan)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

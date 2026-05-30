@@ -5,7 +5,7 @@ export const aspectRatio = {
   components: {
     Default: (
       <div className="w-[450px]">
-        <AspectRatio ratio={16 / 9} className="bg-muted rounded-md">
+        <AspectRatio ratio={16 / 9} className="rounded-md bg-muted">
           <div className="flex h-full items-center justify-center text-muted-foreground">
             16:9 Aspect Ratio
           </div>
