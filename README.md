@@ -1,146 +1,217 @@
-<a href="https://registry-starter.vercel.app/">
-  <h1 align="center">Registry Starter</h1>
-</a>
+<h1 align="center">skills.app</h1>
 
 <p align="center">
-    Registry Starter is a free, open-source template built with Next.js and Shadcn/ui Registry to accelerate your AI-Native Design System.
+  thecolab.ai's AI-Native Design System &mdash; a Next.js + shadcn/ui registry,
+  plus a live explorer for Claude Code skills built over free, public New Zealand
+  data sources.
 </p>
 
 <p align="center">
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#open-in-v0"><strong>Open in v0</strong></a> ·
+  <a href="#what-this-is"><strong>What this is</strong></a> ·
+  <a href="#running-locally"><strong>Running locally</strong></a> ·
+  <a href="#the-registry"><strong>The registry</strong></a> ·
+  <a href="#the-skills-explorer"><strong>Skills explorer</strong></a> ·
   <a href="#theming"><strong>Theming</strong></a> ·
-  <a href="#mcp"><strong>MCP</strong></a> ·
-  <a href="#authentication"><strong>Authentication</strong></a> ·
-  <a href="#running-locally"><strong>Running Locally</strong></a> ·
-  <a href="#file-structure"><strong>File Structure</strong></a> ·
-  <a href="https://ui.shadcn.com/docs/registry"><strong>Read Docs</strong></a>
+  <a href="#file-structure"><strong>File structure</strong></a> ·
+  <a href="#docs--recommendations"><strong>Docs</strong></a>
 </p>
 <br/>
 
-## Deploy Your Own
+## What this is
 
-You can deploy your own version of the Next.js Registry Starter to Vercel with one click:
+`skills.app` serves two purposes from one Next.js 16 app (App Router, Turbopack,
+React 19, Tailwind v4):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fregistry-starter&project-name=my-registry&repository-name=my-registry&demo-title=Registry%20Starter&demo-description=Registry%20Starter%20is%20a%20free%2C%20open-source%20template%20built%20with%20Next.js%20and%20Shadcn%2Fui%20Registry%20to%20accelerate%20your%20AI-Native%20Design%20System.&demo-url=https%3A%2F%2Fregistry-starter.vercel.app&demo-image=%2F%2Fregistry-starter.vercel.app%2Fpreview.png)
-
-## Open in v0
-
-[![Open in v0](https://registry-starter.vercel.app/open-in-v0.svg)](https://v0.dev/chat/api/open?title=Dashboard+Kit&prompt=These+are+existing+design+system+styles+and+files.+Please+utilize+them+alongside+base+components+to+build.&url=https%3A%2F%2Fregistry-starter.vercel.app%2Fr%2Fdashboard.json)
-
-This registry application also exposes `Open in v0` buttons for each component. Once this application is deployed, the
-`Open in v0` button redirects to [`v0.dev`](https://v0.dev) with a prepopulated prompt and a URL pointing back to this
-registry's `/r/${component_name}.json` endpoint. This endpoint will provide v0 the necessary file information, content,
-and metadata to start your v0 chat with your component, theme, and other related code.
-
-These `/r/${component_name}.json` files are generated using `shadcn/ui` during the `build` and `dev` based on the
-repository's [`registry.json`](./registry.json). For more information, refer to the
-[documentation](https://ui.shadcn.com/docs/registry/registry-json).
-
-## Theming
-
-To use a custom theme for all the components, all you need to do is modify the CSS tokens in
-[`globals.css`](./app/globals.css). More information on these practices can be found
-on [ui.shadcn.com/docs](https://ui.shadcn.com/docs).
-
-#### Fonts
-
-To use custom fonts, you can either use [
-`next/font/google`](https://nextjs.org/docs/pages/getting-started/fonts#google-fonts) or the 
-[`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) CSS rule in your 
-[`globals.css`](./app/globals.css).
-
-```css
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    src: url('https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm45xW5rygbi49c.woff2') format('woff2'),
-    url('https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm45xW5rygbj49c.woff') format('woff');
-}
-```
-
-If you use `@font-face`, ensure you modify [`globals.css`](app/globals.css) tailwind configuration to map 
-your custom font variables to Tailwind fonts. Refer to this
-[Tailwind documentation](https://tailwindcss.com/docs/font-family#customizing-your-theme)
-
-## MCP
-
-To use this registry with MCP, you must also edit [`registry.json`](./registry.json)'s first
-`registry-item` named `theme`. This `registry:theme` item not only contains the tailwind configuration, but it also
-contains your design tokens / CSS variables.
-
-The `shadcn/ui` CLI's MCP command will use the entire `registy.json` file, so it must be put in the `/public` folder
-with all of your `registry:item`s. This will enable you to use your registry in tools like Cursor & Windsurf.
-
-## Authentication
-
-To protect your registry, you must first protect your `registry.json` and all `registry:item` JSON files.  
-This is made possible with an environment variable and basic Next.js Middleware.
-
-1. Create new `REGISTRY_AUTH_TOKEN`. For example, you can generate one:
-
-    ```bash
-    node -e "console.log(crypto.randomBytes(32).toString('base64url'))"
-    ```
-
-2. Add new `middleware.ts` file to protect `/r/:path` routes
-
-    ```ts
-    // middleware.ts
-    import { NextResponse } from "next/server";
-    import type { NextRequest } from "next/server";
-    
-    export const config = { matcher: "/r/:path*" };
-    
-    export function middleware(request: NextRequest) {
-      const token = request.nextUrl.searchParams.get("token");
-    
-      if (token == null || token !== process.env.REGISTRY_AUTH_TOKEN) {
-        return new NextResponse("Unauthorized", { status: 401 });
-      }
-    
-      return NextResponse.next();
-    }
-    
-    ```
-
-When using `Open in v0`, the v0 platform will use the `token` search parameter to authenticate with your Registry:
-
-```ts
-const v0Url = `https://v0.dev/chat/api/open?url=https%3A%2F%2Fregistry-starter.vercel.app%2Fr%2Faccordion.json&token=${process.env.REGISTRY_AUTH_TOKEN}`
-```
-
-> [!NOTE]  
-> This method only protects the `/r/:path` routes, this does NOT protect the Registry's UI / component previews. If you
-> choose to protect the UI / component preview, you must ensure the `registry.json` and all `registry:item`s are 
-> publicly accessible or protected using the `token` search parameter. This ensures v0 and other AI Tools have access to
-> use the registry
-    
+1. **A shadcn/ui registry** &mdash; a themed, distributable set of UI primitives,
+   branded components, and full-page blocks. Other projects (and
+   [v0.dev](https://v0.dev)) install them with the `shadcn` CLI by fetching
+   `/r/{name}.json` endpoints. [`registry.json`](./registry.json) is the single
+   source of truth.
+2. **A skills explorer** &mdash; browse, read, and **run** thecolab.ai's Claude
+   Code skills. Each skill is a self-contained Python 3 CLI (standard library,
+   zero dependencies) over a free, public NZ data source. Inspect the source,
+   read the docs, then execute it live in a confined sandbox.
 
 ## Running locally
 
 ```bash
-pnpm install
-pnpm dev
+pnpm install   # pnpm is required (packageManager: pnpm@10.x)
+pnpm dev        # registry:build, then next dev on :3000
 ```
 
-Your app should now be running on [localhost:3000](http://localhost:3000).
+Your app runs on [localhost:3000](http://localhost:3000). No env vars are needed
+for local dev.
 
-## File Structure
+| Command               | What it does                                                        |
+| --------------------- | ------------------------------------------------------------------- |
+| `pnpm dev`            | `registry:build`, then `next dev` on `:3000`                        |
+| `pnpm build`          | `registry:build`, then `next build`                                 |
+| `pnpm registry:build` | `shadcn build` &rarr; regenerates `public/r/*.json` from the registry |
+| `pnpm lint`           | `biome check`                                                       |
+| `pnpm lint:fix`       | `biome check --write`                                               |
 
-`app/(registry)` routes contains the registry pages.
+> **The skills explorer reads from a sibling `../.skills/skills` directory** at
+> request time (override with `SKILLS_DIR`). Without it, the app falls back to
+> the bundled [`src/lib/skills-introspection.json`](./src/lib/skills-introspection.json)
+> snapshot so the UI still renders.
 
-`app/demo` routes contains various UI primitives, Components, or Blocks (based on `registry.json`)
+## The registry
 
-`@/components` contains all components used in the registry
+[`registry.json`](./registry.json) is the source of truth. `pnpm registry:build`
+(the shadcn CLI) reads it and emits one JSON file per item into `public/r/`
+(gitignored &mdash; always generated, never committed). Both `dev` and `build`
+run this first, so `public/r/` is stale until you re-run the build after editing
+`registry.json`.
 
-`@/components/ui` contains all `shadcn/ui` UI Primitives used in the registry
+Each item declares a `type` that drives where it appears and how it groups:
 
-`@/components/registry` contains all components for this Registry Starter application
+| `type`                | Meaning                                            |
+| --------------------- | -------------------------------------------------- |
+| `registry:theme`      | Design tokens / CSS vars (mirrors `globals.css`)   |
+| `registry:ui`         | shadcn primitives                                  |
+| `registry:component`  | Branded components                                 |
+| `registry:block`      | Full-page compositions                             |
 
-`@/hooks` contains all React hooks
+Items declare `files[]` (`path` + `target`) and `registryDependencies[]`
+(absolute `/r/*.json` URLs). A block like `dashboard` lists every component it
+composes as a dependency, so installing it pulls the whole tree.
 
-`@/lib` contains all business logic & utils
+### Open in v0
 
-`@/layouts` contains all v0 layouts used in `registry.json`
+Each registry item exposes an **Open in v0** button. On a deployed instance it
+redirects to [v0.dev](https://v0.dev) with a prepopulated prompt and a URL
+pointing back to this registry's `/r/{name}.json` endpoint, giving v0 the file
+content and metadata to start a chat with your component, theme, and related
+code. The absolute URL is built from `VERCEL_PROJECT_PRODUCTION_URL` (auto-set on
+Vercel).
+
+## The skills explorer
+
+The home page lists every skill discovered under `../.skills/skills`. Each skill
+directory has a `SKILL.md` (frontmatter: `name`, `description`) and a Python CLI.
+
+- **`src/lib/skills.ts`** &mdash; server-only manifest: reads skills via `fs`,
+  parses frontmatter, detects required env vars / secrets, and assigns a
+  category.
+- **`src/lib/introspect.ts`** &mdash; discovers CLI arguments (by running
+  `--help`) and caches the result.
+- **`src/lib/skill-exec.ts`** &mdash; confined execution of a skill CLI.
+
+### Execution guardrails
+
+Running arbitrary skill CLIs is sandboxed in `skill-exec.ts`:
+
+- Only scripts inside `<SKILLS_ROOT>/<skill>/scripts/` are ever executed.
+- The skill name is validated against a strict pattern **and** must resolve to a
+  real directory under `SKILLS_ROOT` (rejects path traversal / symlink escapes).
+- Spawned with an argv array and `shell: false` &mdash; never an interpolated
+  string.
+- A minimal env is constructed (the server's secrets are **not** inherited); the
+  user supplies any required keys per-run.
+- Output is capped (512 KB/stream) and the process is killed on timeout (30 s) or
+  buffer overflow.
+
+### Skills API
+
+| Route                                  | Purpose                                  |
+| -------------------------------------- | ---------------------------------------- |
+| `POST /api/run`                        | Start a confined skill run; returns a job id |
+| `GET  /api/run/[id]`                   | Poll a run's status and accumulated output |
+| `GET  /api/skills/[name]/introspect`  | Introspect a skill's CLI arguments       |
+
+## Theming
+
+Two places define the theme and **must be kept in sync**:
+[`src/app/globals.css`](./src/app/globals.css) (Tailwind v4 `@import
+"tailwindcss"` + `:root`/`.dark` oklch CSS vars &mdash; what the live site
+renders) and the `theme` item's `cssVars` in [`registry.json`](./registry.json)
+(what consumers receive on install). Editing one without the other makes the
+shipped theme drift from the preview.
+
+Brand palette: `brand-navy` (headings), `brand-indigo` (primary), `brand-cyan`
+(links/highlights), `brand-orange` (accents). Type: Inter (body), Playfair
+Display (headings), JetBrains Mono (code). Content uses British/NZ English; code
+stays American.
+
+### Authentication (optional)
+
+To protect the `/r/:path*` JSON routes, set a `REGISTRY_AUTH_TOKEN` and add a
+`middleware.ts` that checks a `token` search param:
+
+```ts
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export const config = { matcher: "/r/:path*" };
+
+export function middleware(request: NextRequest) {
+  const token = request.nextUrl.searchParams.get("token");
+  if (token == null || token !== process.env.REGISTRY_AUTH_TOKEN) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+  return NextResponse.next();
+}
+```
+
+> This protects only the JSON routes, not the UI previews. v0 passes the token
+> via the `token` search param on the `/r/{name}.json` URL.
+
+## File structure
+
+```
+src/
+  app/
+    (registry)/          Public site (route group)
+      page.tsx           Home — the skills browser
+      skills/[name]/     Single-skill detail (read + run)
+      registry/[name]/   Single registry item (install card + Open in v0)
+      tokens/            Theme color & font preview
+    demo/[name]/         Isolated live previews (iframe) for registry cards
+    api/
+      run/               Confined skill execution (start + poll)
+      skills/[name]/     CLI introspection
+  components/
+    ui/                  shadcn/ui primitives
+    registry/            Registry Starter application components
+    skills/              Skills explorer UI (browser, cards, runner, viewers)
+  lib/
+    registry.ts          The only reader of registry.json
+    skills.ts            Server-only skill manifest
+    introspect.ts        CLI argument discovery
+    skill-exec.ts        Confined CLI execution
+    utils.ts             cn() + getPrompt() (v0 handoff)
+registry/
+  common/                Baseline files shipped to consumers (utils, globals, tsconfig)
+  layouts/               v0 layouts referenced by registry.json
+registry.json            Single source of truth for the registry
+public/r/                Generated registry JSON (gitignored)
+docs/recommendations/    Audits & proposed work (see below)
+```
+
+Import alias: `@/*` &rarr; `src/*`; `@/registry` &rarr; `registry.json`.
+
+## Docs & recommendations
+
+Project audits and proposed work live in
+[`docs/recommendations/`](./docs/recommendations):
+
+- [`upgrade-report.md`](./docs/recommendations/upgrade-report.md) &mdash; a
+  prioritized, verified upgrade plan (dependencies, framework, tooling, code
+  patterns), grouped into **Do now / Plan soon / Nice to have** with a batched
+  execution order.
+
+## Conventions
+
+- **Biome** is the formatter + linter (not ESLint/Prettier): 2-space indent,
+  double quotes, semicolons, trailing commas, always-parenthesized arrow params.
+- shadcn config ([`components.json`](./components.json)): `new-york` style, RSC
+  enabled, `lucide` icons, base color gray.
+- `next.config.ts` sends `X-Robots-Tag: noindex` on all routes &mdash; this is a
+  showcase/demo, intentionally not indexed.
+
+---
+
+Built on Vercel's [Registry Starter](https://github.com/vercel/registry-starter)
+template. See [shadcn registry docs](https://ui.shadcn.com/docs/registry) for the
+underlying format.
